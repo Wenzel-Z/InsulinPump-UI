@@ -12,7 +12,14 @@ namespace Csci363_Project
 {
     public partial class Form1 : Form
     {
+        // Used to track amount of insulin shots
         int counter = 0;
+
+
+        // Used to track runtime timer
+        int hour = 0;
+        int minute = 0;
+        int second = 0;
 
         public Form1()
         {
@@ -30,29 +37,31 @@ namespace Csci363_Project
             clock.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
+        private void runtime_Tick(object sender, EventArgs e)
+        {
+            // Increments runetime timer
+            second += 1;
+            string currentRunTime = calculateRunTime();
+            runtimeLabel.Text = currentRunTime;
+        }
+
         private void insulinTimer_Tick(object sender, EventArgs e)
         {
             // Used to time 5 seconds for insulin delivery
-            MessageBox.Show("It works");
+            string counterString = counter.ToString();
+            string timeAtDelivery = DateTime.Now.ToString("HH:mm:ss");
+            string timeSinceReset = calculateRunTime();
+            sysMsg.Text = counterString + " insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset;
             insulinTimer.Enabled = false;
+
             insulinCounter.Text = " ";
+            counter = 0;
             // Add warning past a certain amount of insulin doses?
-        }
-
-        private void insulinPanel_Paint(object sender, PaintEventArgs e)
-        {
-            // Panel used to display insulin doses
-            
-        }
-
-        private void systemPanel_Paint(object sender, PaintEventArgs e)
-        {
-            // Panel to display system messages
-
         }
 
         private void insulinButton_Click(object sender, EventArgs e)
         {
+            // Tracks amount of times insulin button pushed in a 5 second interval
             insulinTimer.Enabled = true;
             counter += 1;
             insulinCounter.Text = counter.ToString();
@@ -60,6 +69,7 @@ namespace Csci363_Project
 
         private void operatorButton_Click(object sender, EventArgs e)
         {
+            // Changes operator mode
 
             if (operationModeLabel.Text == "Auto")
             {
@@ -71,6 +81,55 @@ namespace Csci363_Project
                 // Switch to auto mode
                 operationModeLabel.Text = "Auto";
             }
+        }
+
+        private string calculateRunTime()
+        {
+            string currentRunTime = "";
+            if (minute == 60)
+            {
+                hour += 1;
+                minute = 0;
+            }
+
+            if (second == 60)
+            {
+                minute += 1;
+                second = 0;
+            }
+
+            if (hour < 10)
+            {
+                currentRunTime += "0" + hour;
+            }
+            else
+            {
+                currentRunTime += hour;
+            }
+
+            currentRunTime += ":";
+
+            if (minute < 10)
+            {
+                currentRunTime += "0" + minute;
+            }
+            else
+            {
+                currentRunTime += minute;
+            }
+
+            currentRunTime += ":";
+         
+            if (second < 10)
+            {
+                currentRunTime += "0" + second;
+            }
+            else
+            {
+                currentRunTime += second;
+            }
+
+            return currentRunTime;
         }
     }
 }
