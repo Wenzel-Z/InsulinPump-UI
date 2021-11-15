@@ -35,9 +35,10 @@ namespace Csci363_Project
             this.insulinPanel = new System.Windows.Forms.Panel();
             this.insulinButton = new System.Windows.Forms.Button();
             this.operatorButton = new System.Windows.Forms.Button();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.systemPanel = new System.Windows.Forms.Panel();
             this.operationModeLabel = new System.Windows.Forms.Label();
+            this.insulinCounter = new System.Windows.Forms.Label();
+            this.insulinTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // clockTimer
@@ -110,11 +111,25 @@ namespace Csci363_Project
             this.operationModeLabel.Text = "Auto";
             this.operationModeLabel.UseWaitCursor = true;
             // 
+            // insulinCounter
+            // 
+            this.insulinCounter.AutoSize = true;
+            this.insulinCounter.Location = new System.Drawing.Point(170, 491);
+            this.insulinCounter.Name = "insulinCounter";
+            this.insulinCounter.Size = new System.Drawing.Size(0, 13);
+            this.insulinCounter.TabIndex = 3;
+            // 
+            // insulinTimer
+            // 
+            this.insulinTimer.Interval = 5000;
+            this.insulinTimer.Tick += new System.EventHandler(this.insulinTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(426, 566);
+            this.Controls.Add(this.insulinCounter);
             this.Controls.Add(this.operationModeLabel);
             this.Controls.Add(this.systemPanel);
             this.Controls.Add(this.operatorButton);
@@ -122,7 +137,7 @@ namespace Csci363_Project
             this.Controls.Add(this.insulinPanel);
             this.Controls.Add(this.clock);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Insulin Display";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -135,9 +150,10 @@ namespace Csci363_Project
         private System.Windows.Forms.Panel insulinPanel;
         private System.Windows.Forms.Button insulinButton;
         private System.Windows.Forms.Button operatorButton;
-        private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Panel systemPanel;
         private System.Windows.Forms.Label operationModeLabel;
+        private System.Windows.Forms.Label insulinCounter;
+        private System.Windows.Forms.Timer insulinTimer;
     }
 }
 

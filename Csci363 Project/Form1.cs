@@ -12,6 +12,8 @@ namespace Csci363_Project
 {
     public partial class Form1 : Form
     {
+        int counter = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +30,15 @@ namespace Csci363_Project
             clock.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
+        private void insulinTimer_Tick(object sender, EventArgs e)
+        {
+            // Used to time 5 seconds for insulin delivery
+            MessageBox.Show("It works");
+            insulinTimer.Enabled = false;
+            insulinCounter.Text = " ";
+            // Add warning past a certain amount of insulin doses?
+        }
+
         private void insulinPanel_Paint(object sender, PaintEventArgs e)
         {
             // Panel used to display insulin doses
@@ -42,7 +53,9 @@ namespace Csci363_Project
 
         private void insulinButton_Click(object sender, EventArgs e)
         {
-
+            insulinTimer.Enabled = true;
+            counter += 1;
+            insulinCounter.Text = counter.ToString();
         }
 
         private void operatorButton_Click(object sender, EventArgs e)
