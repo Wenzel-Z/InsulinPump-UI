@@ -14,6 +14,7 @@ namespace Csci363_Project
     {
         // Used to track amount of insulin shots
         int counter = 0;
+        int totalShots = 0;
 
 
         // Used to track runtime timer
@@ -28,7 +29,9 @@ namespace Csci363_Project
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            // Loads second form after first form is loaded
+            Simulator simulation = new Simulator();
+            simulation.Show();
         }
 
         private void clockTimer_Tick_1(object sender, EventArgs e)
@@ -43,6 +46,11 @@ namespace Csci363_Project
             second += 1;
             string currentRunTime = calculateRunTime();
             runtimeLabel.Text = currentRunTime;
+            
+            if (hour == 24)
+            {
+                systemReset();
+            }
         }
 
         private void insulinTimer_Tick(object sender, EventArgs e)
@@ -51,12 +59,24 @@ namespace Csci363_Project
             string counterString = counter.ToString();
             string timeAtDelivery = DateTime.Now.ToString("HH:mm:ss");
             string timeSinceReset = calculateRunTime();
-            sysMsg.Text = counterString + " insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset;
-            insulinTimer.Enabled = false;
+            
+            totalShots += counter;
 
+            string messageToAdd = counterString + " insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset + ".";
+            string secondMessage = "Total shots delivered during runtime: " + totalShots + ".";
+
+            sysMsgBox.Items.Add(messageToAdd);
+            sysMsgBox.Items.Add(secondMessage);
+
+            if (sysMsgBox.Items.Count == 8)
+            {
+                sysMsgBox.Items.RemoveAt(1);
+                sysMsgBox.Items.RemoveAt(0);
+            }
+
+            insulinTimer.Enabled = false;
             insulinCounter.Text = " ";
             counter = 0;
-            // Add warning past a certain amount of insulin doses?
         }
 
         private void insulinButton_Click(object sender, EventArgs e)
@@ -86,16 +106,17 @@ namespace Csci363_Project
         private string calculateRunTime()
         {
             string currentRunTime = "";
-            if (minute == 60)
-            {
-                hour += 1;
-                minute = 0;
-            }
 
             if (second == 60)
             {
                 minute += 1;
                 second = 0;
+            }
+
+            if (minute == 60)
+            {
+                hour += 1;
+                minute = 0;
             }
 
             if (hour < 10)
@@ -130,6 +151,20 @@ namespace Csci363_Project
             }
 
             return currentRunTime;
+        }
+
+        private void systemReset()
+        {
+            hour = 0;
+            minute = 0;
+            second = 0;
+
+            totalShots = 0;
+        }
+
+        private void sysMsgBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

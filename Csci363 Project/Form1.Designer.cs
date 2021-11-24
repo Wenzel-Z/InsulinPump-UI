@@ -37,10 +37,10 @@ namespace Csci363_Project
             this.operationModeLabel = new System.Windows.Forms.Label();
             this.insulinCounter = new System.Windows.Forms.Label();
             this.insulinTimer = new System.Windows.Forms.Timer(this.components);
-            this.sysMsg = new System.Windows.Forms.Label();
             this.runtimeTimer = new System.Windows.Forms.Timer(this.components);
             this.runtimeLabel = new System.Windows.Forms.Label();
             this.systemMessageLabel = new System.Windows.Forms.Label();
+            this.sysMsgBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // clockTimer
@@ -106,15 +106,6 @@ namespace Csci363_Project
             this.insulinTimer.Interval = 5000;
             this.insulinTimer.Tick += new System.EventHandler(this.insulinTimer_Tick);
             // 
-            // sysMsg
-            // 
-            this.sysMsg.AutoSize = true;
-            this.sysMsg.Location = new System.Drawing.Point(37, 178);
-            this.sysMsg.Name = "sysMsg";
-            this.sysMsg.Size = new System.Drawing.Size(87, 13);
-            this.sysMsg.TabIndex = 4;
-            this.sysMsg.Text = "System Message";
-            // 
             // runtimeTimer
             // 
             this.runtimeTimer.Enabled = true;
@@ -139,14 +130,23 @@ namespace Csci363_Project
             this.systemMessageLabel.TabIndex = 6;
             this.systemMessageLabel.Text = "System Message";
             // 
+            // sysMsgBox
+            // 
+            this.sysMsgBox.FormattingEnabled = true;
+            this.sysMsgBox.Location = new System.Drawing.Point(12, 173);
+            this.sysMsgBox.Name = "sysMsgBox";
+            this.sysMsgBox.Size = new System.Drawing.Size(402, 95);
+            this.sysMsgBox.TabIndex = 8;
+            this.sysMsgBox.SelectedIndexChanged += new System.EventHandler(this.sysMsgBox_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(426, 566);
+            this.Controls.Add(this.sysMsgBox);
             this.Controls.Add(this.systemMessageLabel);
             this.Controls.Add(this.runtimeLabel);
-            this.Controls.Add(this.sysMsg);
             this.Controls.Add(this.insulinCounter);
             this.Controls.Add(this.operationModeLabel);
             this.Controls.Add(this.operatorButton);
@@ -168,10 +168,10 @@ namespace Csci363_Project
         private System.Windows.Forms.Label operationModeLabel;
         private System.Windows.Forms.Label insulinCounter;
         private System.Windows.Forms.Timer insulinTimer;
-        private System.Windows.Forms.Label sysMsg;
         private System.Windows.Forms.Timer runtimeTimer;
         private System.Windows.Forms.Label runtimeLabel;
         private System.Windows.Forms.Label systemMessageLabel;
+        private System.Windows.Forms.ListBox sysMsgBox;
     }
 }
 
