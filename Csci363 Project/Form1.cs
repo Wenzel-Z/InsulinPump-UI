@@ -22,6 +22,11 @@ namespace Csci363_Project
         int minute = 0;
         int second = 0;
 
+        // Keeps track of warnings and loops through them
+        List<string> warnings = new List<string>();
+        int index = 0;
+        int length;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +35,7 @@ namespace Csci363_Project
         private void Form1_Load(object sender, EventArgs e)
         {
             // Loads second form after first form is loaded
-            Simulator simulation = new Simulator();
+            Simulator simulation = new Simulator(this);
             simulation.Show();
         }
 
@@ -42,14 +47,24 @@ namespace Csci363_Project
 
         private void runtime_Tick(object sender, EventArgs e)
         {
-            // Increments runetime timer
+            // Increments runtime timer
             second += 1;
             string currentRunTime = calculateRunTime();
             runtimeLabel.Text = currentRunTime;
-            
+
             if (hour == 24)
             {
                 systemReset();
+            }
+        }
+
+        public void addInsulinMessage(string message)
+        {
+            insulinMessages.Items.Add(message);
+            if (insulinMessages.Items.Count == 8)
+            {
+                insulinMessages.Items.RemoveAt(1);
+                insulinMessages.Items.RemoveAt(0);
             }
         }
 
@@ -59,26 +74,106 @@ namespace Csci363_Project
             string counterString = counter.ToString();
             string timeAtDelivery = DateTime.Now.ToString("HH:mm:ss");
             string timeSinceReset = calculateRunTime();
-            
+
             totalShots += counter;
 
             string messageToAdd = counterString + " insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset + ".";
             string secondMessage = "Total shots delivered during runtime: " + totalShots + ".";
 
-            sysMsgBox.Items.Add(messageToAdd);
-            sysMsgBox.Items.Add(secondMessage);
-
-            if (sysMsgBox.Items.Count == 8)
-            {
-                sysMsgBox.Items.RemoveAt(1);
-                sysMsgBox.Items.RemoveAt(0);
-            }
+            addInsulinMessage(messageToAdd);
+            addInsulinMessage(secondMessage);
 
             insulinTimer.Enabled = false;
             insulinCounter.Text = " ";
             counter = 0;
         }
 
+        private void autoMode()
+        {
+
+        }
+
+        public void warningRemove(string warning)
+        {
+            // Used to remove warnings from the list, right now has a bug
+            if (this.warnings.Contains(warning))
+            {
+                this.warnings.Remove(warning);
+                length -= 1;
+            }
+        }
+
+        public void systemWarnings(string warning)
+        {
+            switch (warning)
+            {
+                case "No Needle Unit":
+                    addWarning("No Needle Unit");
+                    break;
+
+                case "No Insulin Remaining":
+                    addWarning("No Insulin Remaining");
+                    break;
+
+                case "Low Insulin Level":
+                    addWarning("Low Insulin Level");
+                    break;
+
+                case "Low Battery":
+                    addWarning("Low Battery");
+                    break;
+
+                case "Pump Failure":
+                    addWarning("Pump Failure");
+                    break;
+
+                case "Needle Failure":
+                    addWarning("Needle Failure");
+                    break;
+
+                case "Sensor Failure":
+                    addWarning("Sensor Failure");
+                    break;
+
+                case "Sugar Low":
+                    addWarning("Sugar Low");
+                    break;
+            }
+        }
+
+        private void addWarning(string warning)
+        {
+            this.warnings.Add(warning);
+            length += 1;
+
+            if (length == 1) {
+                systemMessages.Items.Add(warning);
+            }
+ 
+            else if (systemMessageTimer.Enabled == false && length >= 2)
+            {
+                systemMessageTimer.Enabled = true;
+            }
+        }
+        
+        private void systemMessageTimer_Tick(object sender, EventArgs e)
+        {
+            // Timer used to cycle through
+            if (length == 0)
+            {
+                systemMessageTimer.Enabled = false;
+                MessageBox.Show("Timer disabled");
+            }
+            
+            if (index >= length)
+            { 
+                index = 0;
+            }
+
+            systemMessages.Items.Clear();
+            systemMessages.Items.Add(this.warnings[index]);
+            index += 1;
+        }
         private void insulinButton_Click(object sender, EventArgs e)
         {
             // Tracks amount of times insulin button pushed in a 5 second interval
@@ -90,16 +185,18 @@ namespace Csci363_Project
         private void operatorButton_Click(object sender, EventArgs e)
         {
             // Changes operator mode
-
             if (operationModeLabel.Text == "Auto")
             {
                 // Switch to manual mode
                 operationModeLabel.Text = "Manual";
-            } 
-            else
+                insulinButton.Enabled = true;
+            }
+            else if (operationModeLabel.Text == "Manual")
             {
                 // Switch to auto mode
                 operationModeLabel.Text = "Auto";
+                startSystem();
+                insulinButton.Enabled = false;
             }
         }
 
@@ -140,7 +237,7 @@ namespace Csci363_Project
             }
 
             currentRunTime += ":";
-         
+
             if (second < 10)
             {
                 currentRunTime += "0" + second;
@@ -153,7 +250,7 @@ namespace Csci363_Project
             return currentRunTime;
         }
 
-        private void systemReset()
+        public void systemReset()
         {
             hour = 0;
             minute = 0;
@@ -162,9 +259,72 @@ namespace Csci363_Project
             totalShots = 0;
         }
 
+        private void startSystem()
+        {
+            if (operationModeLabel.Text == "Auto")
+            {
+                insulinButton.Enabled = false;
+            } else
+            {
+                insulinButton.Enabled = true;
+            }
+
+            operatorButton.Enabled = true;
+            clockTimer.Enabled = true;
+            runtimeTimer.Enabled = true;
+        }
+
+        private void stopTimers()
+        {
+            clockTimer.Enabled = false;
+            insulinTimer.Enabled = false;
+            runtimeTimer.Enabled = false;
+            systemMessageTimer.Enabled = false;
+        }
+
+        public void stopSystem()
+        {
+            // Stops system when mode is off, I think there is a better way to do this but for now I just individually reset everything to default values
+            // Auto mode will have to start what is necessary again
+
+            insulinMessages.Items.Clear();
+            systemMessages.Items.Clear();
+            insulinMessages.Items.Clear();
+
+            stopTimers();
+            systemReset();
+
+            operatorButton.Enabled = false;
+            insulinButton.Enabled = false;
+            insulinCounter.Text = "";
+            clock.Text = "00:00:00";
+            runtimeLabel.Text = "00:00:00";
+        }
+
         private void sysMsgBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void systemMessages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void offButton_Click(object sender, EventArgs e)
+        {
+            if (offButton.Text == "Turn Off")
+            {
+                stopSystem();
+                offButton.Text = "Turn On";
+
+            } else
+            {
+                startSystem();
+                offButton.Text = "Turn Off";
+            }
+        }
+
+        
     }
 }

@@ -39,8 +39,10 @@ namespace Csci363_Project
             this.insulinTimer = new System.Windows.Forms.Timer(this.components);
             this.runtimeTimer = new System.Windows.Forms.Timer(this.components);
             this.runtimeLabel = new System.Windows.Forms.Label();
-            this.systemMessageLabel = new System.Windows.Forms.Label();
-            this.sysMsgBox = new System.Windows.Forms.ListBox();
+            this.insulinMessages = new System.Windows.Forms.ListBox();
+            this.systemMessages = new System.Windows.Forms.ListBox();
+            this.systemMessageTimer = new System.Windows.Forms.Timer(this.components);
+            this.offButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // clockTimer
@@ -60,12 +62,14 @@ namespace Csci363_Project
             // 
             // insulinButton
             // 
+            this.insulinButton.Enabled = false;
             this.insulinButton.Location = new System.Drawing.Point(12, 486);
             this.insulinButton.Name = "insulinButton";
             this.insulinButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.insulinButton.Size = new System.Drawing.Size(155, 23);
             this.insulinButton.TabIndex = 0;
             this.insulinButton.Text = "Administer 1 does of insulin";
+            this.insulinButton.UseMnemonic = false;
             this.insulinButton.UseVisualStyleBackColor = true;
             this.insulinButton.Click += new System.EventHandler(this.insulinButton_Click);
             // 
@@ -121,31 +125,47 @@ namespace Csci363_Project
             this.runtimeLabel.TabIndex = 5;
             this.runtimeLabel.Text = "00:00:00";
             // 
-            // systemMessageLabel
+            // insulinMessages
             // 
-            this.systemMessageLabel.AutoSize = true;
-            this.systemMessageLabel.Location = new System.Drawing.Point(158, 145);
-            this.systemMessageLabel.Name = "systemMessageLabel";
-            this.systemMessageLabel.Size = new System.Drawing.Size(87, 13);
-            this.systemMessageLabel.TabIndex = 6;
-            this.systemMessageLabel.Text = "System Message";
+            this.insulinMessages.FormattingEnabled = true;
+            this.insulinMessages.Location = new System.Drawing.Point(12, 119);
+            this.insulinMessages.Name = "insulinMessages";
+            this.insulinMessages.Size = new System.Drawing.Size(402, 95);
+            this.insulinMessages.TabIndex = 8;
+            this.insulinMessages.SelectedIndexChanged += new System.EventHandler(this.sysMsgBox_SelectedIndexChanged);
             // 
-            // sysMsgBox
+            // systemMessages
             // 
-            this.sysMsgBox.FormattingEnabled = true;
-            this.sysMsgBox.Location = new System.Drawing.Point(12, 173);
-            this.sysMsgBox.Name = "sysMsgBox";
-            this.sysMsgBox.Size = new System.Drawing.Size(402, 95);
-            this.sysMsgBox.TabIndex = 8;
-            this.sysMsgBox.SelectedIndexChanged += new System.EventHandler(this.sysMsgBox_SelectedIndexChanged);
+            this.systemMessages.FormattingEnabled = true;
+            this.systemMessages.Location = new System.Drawing.Point(12, 288);
+            this.systemMessages.Name = "systemMessages";
+            this.systemMessages.Size = new System.Drawing.Size(402, 43);
+            this.systemMessages.TabIndex = 9;
+            this.systemMessages.SelectedIndexChanged += new System.EventHandler(this.systemMessages_SelectedIndexChanged);
+            // 
+            // systemMessageTimer
+            // 
+            this.systemMessageTimer.Interval = 5000;
+            this.systemMessageTimer.Tick += new System.EventHandler(this.systemMessageTimer_Tick);
+            // 
+            // offButton
+            // 
+            this.offButton.Location = new System.Drawing.Point(282, 524);
+            this.offButton.Name = "offButton";
+            this.offButton.Size = new System.Drawing.Size(132, 23);
+            this.offButton.TabIndex = 10;
+            this.offButton.Text = "Turn Off";
+            this.offButton.UseVisualStyleBackColor = true;
+            this.offButton.Click += new System.EventHandler(this.offButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(426, 566);
-            this.Controls.Add(this.sysMsgBox);
-            this.Controls.Add(this.systemMessageLabel);
+            this.Controls.Add(this.offButton);
+            this.Controls.Add(this.systemMessages);
+            this.Controls.Add(this.insulinMessages);
             this.Controls.Add(this.runtimeLabel);
             this.Controls.Add(this.insulinCounter);
             this.Controls.Add(this.operationModeLabel);
@@ -170,8 +190,10 @@ namespace Csci363_Project
         private System.Windows.Forms.Timer insulinTimer;
         private System.Windows.Forms.Timer runtimeTimer;
         private System.Windows.Forms.Label runtimeLabel;
-        private System.Windows.Forms.Label systemMessageLabel;
-        private System.Windows.Forms.ListBox sysMsgBox;
+        private System.Windows.Forms.ListBox insulinMessages;
+        private System.Windows.Forms.ListBox systemMessages;
+        private System.Windows.Forms.Timer systemMessageTimer;
+        private System.Windows.Forms.Button offButton;
     }
 }
 
