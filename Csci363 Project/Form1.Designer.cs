@@ -43,12 +43,14 @@ namespace Csci363_Project
             this.systemMessages = new System.Windows.Forms.ListBox();
             this.systemMessageTimer = new System.Windows.Forms.Timer(this.components);
             this.offButton = new System.Windows.Forms.Button();
+            this.bloodSugarTimer = new System.Windows.Forms.Timer(this.components);
+            this.hardwareTimer = new System.Windows.Forms.Timer(this.components);
+            this.alarmTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // clockTimer
             // 
-            this.clockTimer.Enabled = true;
-            this.clockTimer.Interval = 1;
+            this.clockTimer.Interval = 1000;
             this.clockTimer.Tick += new System.EventHandler(this.clockTimer_Tick_1);
             // 
             // clock
@@ -75,6 +77,7 @@ namespace Csci363_Project
             // 
             // operatorButton
             // 
+            this.operatorButton.Enabled = false;
             this.operatorButton.Location = new System.Drawing.Point(12, 529);
             this.operatorButton.Name = "operatorButton";
             this.operatorButton.Size = new System.Drawing.Size(155, 23);
@@ -112,7 +115,6 @@ namespace Csci363_Project
             // 
             // runtimeTimer
             // 
-            this.runtimeTimer.Enabled = true;
             this.runtimeTimer.Interval = 1000;
             this.runtimeTimer.Tick += new System.EventHandler(this.runtime_Tick);
             // 
@@ -150,6 +152,7 @@ namespace Csci363_Project
             // 
             // offButton
             // 
+            this.offButton.Enabled = false;
             this.offButton.Location = new System.Drawing.Point(282, 524);
             this.offButton.Name = "offButton";
             this.offButton.Size = new System.Drawing.Size(132, 23);
@@ -157,6 +160,21 @@ namespace Csci363_Project
             this.offButton.Text = "Turn Off";
             this.offButton.UseVisualStyleBackColor = true;
             this.offButton.Click += new System.EventHandler(this.offButton_Click);
+            // 
+            // bloodSugarTimer
+            // 
+            this.bloodSugarTimer.Interval = 1001;
+            this.bloodSugarTimer.Tick += new System.EventHandler(this.bloodSugarTimer_Tick);
+            // 
+            // hardwareTimer
+            // 
+            this.hardwareTimer.Interval = 1001;
+            this.hardwareTimer.Tick += new System.EventHandler(this.hardwareTimer_Tick);
+            // 
+            // alarmTimer
+            // 
+            this.alarmTimer.Interval = 1001;
+            this.alarmTimer.Tick += new System.EventHandler(this.alarmTimer_Tick);
             // 
             // Form1
             // 
@@ -188,12 +206,15 @@ namespace Csci363_Project
         private System.Windows.Forms.Label operationModeLabel;
         private System.Windows.Forms.Label insulinCounter;
         private System.Windows.Forms.Timer insulinTimer;
-        private System.Windows.Forms.Timer runtimeTimer;
         private System.Windows.Forms.Label runtimeLabel;
-        private System.Windows.Forms.ListBox insulinMessages;
         private System.Windows.Forms.ListBox systemMessages;
-        private System.Windows.Forms.Timer systemMessageTimer;
         private System.Windows.Forms.Button offButton;
+        private System.Windows.Forms.Timer bloodSugarTimer;
+        private System.Windows.Forms.Timer hardwareTimer;
+        private System.Windows.Forms.Timer alarmTimer;
+        private System.Windows.Forms.Timer runtimeTimer;
+        private System.Windows.Forms.Timer systemMessageTimer;
+        private System.Windows.Forms.ListBox insulinMessages;
     }
 }
 

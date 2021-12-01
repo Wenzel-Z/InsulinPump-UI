@@ -39,6 +39,8 @@ namespace Csci363_Project
             simulation.Show();
         }
 
+
+        // Clocks for time and runtime, and the timer that tracks insulin over 5 seconds
         private void clockTimer_Tick_1(object sender, EventArgs e)
         {
             // Sets and updates clock time, label is called "clock"
@@ -55,16 +57,6 @@ namespace Csci363_Project
             if (hour == 24)
             {
                 systemReset();
-            }
-        }
-
-        public void addInsulinMessage(string message)
-        {
-            insulinMessages.Items.Add(message);
-            if (insulinMessages.Items.Count == 8)
-            {
-                insulinMessages.Items.RemoveAt(1);
-                insulinMessages.Items.RemoveAt(0);
             }
         }
 
@@ -86,13 +78,41 @@ namespace Csci363_Project
             insulinTimer.Enabled = false;
             insulinCounter.Text = " ";
             counter = 0;
-        }
 
-        private void autoMode()
+            // Need to add safety measures
+        }
+        
+
+        // Timers for self-tests
+        private void bloodSugarTimer_Tick(object sender, EventArgs e)
         {
 
         }
 
+        private void hardwareTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void alarmTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+
+        // Code to add messages to insulinMessages
+        public void addInsulinMessage(string message)
+        {
+            insulinMessages.Items.Add(message);
+            if (insulinMessages.Items.Count == 8)
+            {
+                insulinMessages.Items.RemoveAt(1);
+                insulinMessages.Items.RemoveAt(0);
+            }
+        }
+
+
+        // Functions related to warnings
         public void warningRemove(string warning)
         {
             // Used to remove warnings from the list, right now has a bug
@@ -146,23 +166,25 @@ namespace Csci363_Project
             this.warnings.Add(warning);
             length += 1;
 
-            if (length == 1) {
+            if (length == 1) 
+            {
                 systemMessages.Items.Add(warning);
             }
- 
             else if (systemMessageTimer.Enabled == false && length >= 2)
             {
                 systemMessageTimer.Enabled = true;
             }
         }
+
         
+        // Cycles through messages on system if there are more than 1
         private void systemMessageTimer_Tick(object sender, EventArgs e)
         {
-            // Timer used to cycle through
+            // Timer used to cycle through messages
             if (length == 0)
             {
                 systemMessageTimer.Enabled = false;
-                MessageBox.Show("Timer disabled");
+                
             }
             
             if (index >= length)
@@ -170,10 +192,19 @@ namespace Csci363_Project
                 index = 0;
             }
 
-            systemMessages.Items.Clear();
-            systemMessages.Items.Add(this.warnings[index]);
-            index += 1;
+            if (length == 0)
+            {
+                systemMessageTimer.Enabled = false;
+                systemMessages.Items.Clear();
+            } 
+            else
+            {
+                systemMessages.Items.Clear();
+                systemMessages.Items.Add(this.warnings[index]);
+                index += 1;
+            }
         }
+
         private void insulinButton_Click(object sender, EventArgs e)
         {
             // Tracks amount of times insulin button pushed in a 5 second interval
@@ -200,6 +231,8 @@ namespace Csci363_Project
             }
         }
 
+
+        // Calculates run time and returns string
         private string calculateRunTime()
         {
             string currentRunTime = "";
@@ -250,6 +283,8 @@ namespace Csci363_Project
             return currentRunTime;
         }
 
+
+        // System start and stop, as well as the button for toggling both
         public void systemReset()
         {
             hour = 0;
@@ -272,6 +307,18 @@ namespace Csci363_Project
             operatorButton.Enabled = true;
             clockTimer.Enabled = true;
             runtimeTimer.Enabled = true;
+
+            if (bloodSugarTimer.Interval % 1000 == 0)
+            {
+                bloodSugarTimer.Enabled = true;
+                hardwareTimer.Enabled = true;
+                alarmTimer.Enabled = true;
+            }
+
+            if (offButton.Text == "Turn On")
+            {
+                offButton.Text = "Turn Off";
+            }
         }
 
         private void stopTimers()
@@ -280,6 +327,10 @@ namespace Csci363_Project
             insulinTimer.Enabled = false;
             runtimeTimer.Enabled = false;
             systemMessageTimer.Enabled = false;
+            bloodSugarTimer.Enabled = false;
+            hardwareTimer.Enabled = false;
+            alarmTimer.Enabled = false;
+
         }
 
         public void stopSystem()
@@ -301,16 +352,6 @@ namespace Csci363_Project
             runtimeLabel.Text = "00:00:00";
         }
 
-        private void sysMsgBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void systemMessages_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void offButton_Click(object sender, EventArgs e)
         {
             if (offButton.Text == "Turn Off")
@@ -325,6 +366,39 @@ namespace Csci363_Project
             }
         }
 
-        
+
+        // Sets initial parameters
+        public void setParameters(int sugarInterval, int hardwareInterval, int alarmInterval)
+        {
+            sugarInterval *= 1000;
+            hardwareInterval *= 1000;
+            alarmInterval *= 1000;
+
+            bloodSugarTimer.Interval = sugarInterval;
+            bloodSugarTimer.Enabled = true;
+
+            hardwareTimer.Interval = hardwareInterval;
+            hardwareTimer.Enabled = true;
+
+            alarmTimer.Interval = alarmInterval;
+            alarmTimer.Enabled = true;
+
+            offButton.Enabled = true;
+            operatorButton.Enabled = true;
+            startSystem();
+        }
+
+
+        // Extra functions, don't delete
+        private void sysMsgBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void systemMessages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

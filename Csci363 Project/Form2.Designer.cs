@@ -39,15 +39,25 @@ namespace Csci363_Project
             this.sensorFailureButton = new System.Windows.Forms.Button();
             this.sugarLowButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.replaceNeedleUnitButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.replaceBatteryButton = new System.Windows.Forms.Button();
+            this.replacePumpButton = new System.Windows.Forms.Button();
+            this.replaceSensorButton = new System.Windows.Forms.Button();
+            this.consumeSugar = new System.Windows.Forms.Button();
+            this.bloodSugarBox = new System.Windows.Forms.TextBox();
+            this.hardwareBox = new System.Windows.Forms.TextBox();
+            this.alarmBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.setButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // insulinReservoirButton
             // 
-            this.insulinReservoirButton.Location = new System.Drawing.Point(346, 89);
+            this.insulinReservoirButton.Location = new System.Drawing.Point(192, 89);
             this.insulinReservoirButton.Name = "insulinReservoirButton";
             this.insulinReservoirButton.Size = new System.Drawing.Size(148, 23);
             this.insulinReservoirButton.TabIndex = 0;
@@ -144,19 +154,10 @@ namespace Csci363_Project
             this.label1.TabIndex = 10;
             this.label1.Text = "Error Conditions";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(223, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Alarm Conditions";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(394, 35);
+            this.label3.Location = new System.Drawing.Point(240, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 12;
@@ -164,7 +165,7 @@ namespace Csci363_Project
             // 
             // replaceNeedleUnitButton
             // 
-            this.replaceNeedleUnitButton.Location = new System.Drawing.Point(346, 60);
+            this.replaceNeedleUnitButton.Location = new System.Drawing.Point(192, 60);
             this.replaceNeedleUnitButton.Name = "replaceNeedleUnitButton";
             this.replaceNeedleUnitButton.Size = new System.Drawing.Size(148, 23);
             this.replaceNeedleUnitButton.TabIndex = 13;
@@ -172,24 +173,133 @@ namespace Csci363_Project
             this.replaceNeedleUnitButton.UseVisualStyleBackColor = true;
             this.replaceNeedleUnitButton.Click += new System.EventHandler(this.replaceNeedleUnitButton_Click);
             // 
-            // button3
+            // replaceBatteryButton
             // 
-            this.button3.Location = new System.Drawing.Point(192, 60);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(148, 23);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.replaceBatteryButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.replaceBatteryButton.Location = new System.Drawing.Point(192, 118);
+            this.replaceBatteryButton.Name = "replaceBatteryButton";
+            this.replaceBatteryButton.Size = new System.Drawing.Size(148, 23);
+            this.replaceBatteryButton.TabIndex = 15;
+            this.replaceBatteryButton.Text = "Replace Battery";
+            this.replaceBatteryButton.UseVisualStyleBackColor = true;
+            this.replaceBatteryButton.Click += new System.EventHandler(this.replaceBatteryButton_Click);
+            // 
+            // replacePumpButton
+            // 
+            this.replacePumpButton.Location = new System.Drawing.Point(192, 147);
+            this.replacePumpButton.Name = "replacePumpButton";
+            this.replacePumpButton.Size = new System.Drawing.Size(148, 23);
+            this.replacePumpButton.TabIndex = 16;
+            this.replacePumpButton.Text = "Replace Pump";
+            this.replacePumpButton.UseVisualStyleBackColor = true;
+            this.replacePumpButton.Click += new System.EventHandler(this.replacePumpButton_Click);
+            // 
+            // replaceSensorButton
+            // 
+            this.replaceSensorButton.Location = new System.Drawing.Point(192, 176);
+            this.replaceSensorButton.Name = "replaceSensorButton";
+            this.replaceSensorButton.Size = new System.Drawing.Size(148, 23);
+            this.replaceSensorButton.TabIndex = 17;
+            this.replaceSensorButton.Text = "Replace Sensor";
+            this.replaceSensorButton.UseVisualStyleBackColor = true;
+            this.replaceSensorButton.Click += new System.EventHandler(this.replaceSensorButton_Click);
+            // 
+            // consumeSugar
+            // 
+            this.consumeSugar.Location = new System.Drawing.Point(192, 205);
+            this.consumeSugar.Name = "consumeSugar";
+            this.consumeSugar.Size = new System.Drawing.Size(148, 23);
+            this.consumeSugar.TabIndex = 18;
+            this.consumeSugar.Text = "Consume Sugar";
+            this.consumeSugar.UseVisualStyleBackColor = true;
+            this.consumeSugar.Click += new System.EventHandler(this.consumeSugar_Click);
+            // 
+            // bloodSugarBox
+            // 
+            this.bloodSugarBox.Location = new System.Drawing.Point(678, 109);
+            this.bloodSugarBox.Name = "bloodSugarBox";
+            this.bloodSugarBox.Size = new System.Drawing.Size(100, 20);
+            this.bloodSugarBox.TabIndex = 19;
+            // 
+            // hardwareBox
+            // 
+            this.hardwareBox.Location = new System.Drawing.Point(678, 135);
+            this.hardwareBox.Name = "hardwareBox";
+            this.hardwareBox.Size = new System.Drawing.Size(100, 20);
+            this.hardwareBox.TabIndex = 20;
+            // 
+            // alarmBox
+            // 
+            this.alarmBox.Location = new System.Drawing.Point(678, 161);
+            this.alarmBox.Name = "alarmBox";
+            this.alarmBox.Size = new System.Drawing.Size(100, 20);
+            this.alarmBox.TabIndex = 21;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(550, 112);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(112, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Testing of blood sugar";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(550, 138);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(101, 13);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Testing of hardware";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(550, 164);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(113, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Testing of alarm status";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(676, 93);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(102, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Interval (in seconds)";
+            // 
+            // setButton
+            // 
+            this.setButton.Location = new System.Drawing.Point(689, 187);
+            this.setButton.Name = "setButton";
+            this.setButton.Size = new System.Drawing.Size(75, 23);
+            this.setButton.TabIndex = 26;
+            this.setButton.Text = "Set";
+            this.setButton.UseVisualStyleBackColor = true;
+            this.setButton.Click += new System.EventHandler(this.setButton_Click);
             // 
             // Simulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.setButton);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.alarmBox);
+            this.Controls.Add(this.hardwareBox);
+            this.Controls.Add(this.bloodSugarBox);
+            this.Controls.Add(this.consumeSugar);
+            this.Controls.Add(this.replaceSensorButton);
+            this.Controls.Add(this.replacePumpButton);
+            this.Controls.Add(this.replaceBatteryButton);
             this.Controls.Add(this.replaceNeedleUnitButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.sugarLowButton);
             this.Controls.Add(this.sensorFailureButton);
@@ -221,9 +331,19 @@ namespace Csci363_Project
         private System.Windows.Forms.Button sensorFailureButton;
         private System.Windows.Forms.Button sugarLowButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button replaceNeedleUnitButton;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button replaceBatteryButton;
+        private System.Windows.Forms.Button replacePumpButton;
+        private System.Windows.Forms.Button replaceSensorButton;
+        private System.Windows.Forms.Button consumeSugar;
+        private System.Windows.Forms.TextBox bloodSugarBox;
+        private System.Windows.Forms.TextBox hardwareBox;
+        private System.Windows.Forms.TextBox alarmBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button setButton;
     }
 }
