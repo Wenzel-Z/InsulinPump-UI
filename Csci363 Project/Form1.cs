@@ -15,6 +15,11 @@ namespace Csci363_Project
         // Used to track amount of insulin shots
         int counter = 0;
         int totalShots = 0;
+        int insulinReservoir = 100;
+
+        // Used to track blood sugar levels
+        List<int> bloodSugarLevels = new List<int>();
+        int bloodSugarLength;
 
 
         // Used to track runtime timer
@@ -57,6 +62,7 @@ namespace Csci363_Project
             if (hour == 24)
             {
                 systemReset();
+                totalShots = 0;
             }
         }
 
@@ -67,31 +73,75 @@ namespace Csci363_Project
             string timeAtDelivery = DateTime.Now.ToString("HH:mm:ss");
             string timeSinceReset = calculateRunTime();
 
-            totalShots += counter;
+            if (insulinReservoir >= counter && totalShots <= 100)
+            {
+                insulinReservoir -= counter;
+                totalShots += counter;
 
-            string messageToAdd = counterString + " insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset + ".";
-            string secondMessage = "Total shots delivered during runtime: " + totalShots + ".";
+                string messageToAdd = counterString + "ml insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset + ".";
+                string secondMessage = "Total shots delivered during runtime: " + totalShots + ". There are " + insulinReservoir + "ml remaining.";
 
-            addInsulinMessage(messageToAdd);
-            addInsulinMessage(secondMessage);
+                addInsulinMessage(messageToAdd);
+                addInsulinMessage(secondMessage);
+            }
+            else
+            {
+                if (insulinReservoir >= counter) 
+                {
+                    addInsulinMessage("Not enough insulin available in the reservoir.");
+                }
+                else
+                {
+                    addInsulinMessage("Total shots today have exceeded acceptable limits");
+                }
+            }
 
             insulinTimer.Enabled = false;
             insulinCounter.Text = " ";
-            counter = 0;
 
-            // Need to add safety measures
+            counter = 0;
         }
         
 
         // Timers for self-tests
         private void bloodSugarTimer_Tick(object sender, EventArgs e)
         {
+            if (insulinReservoir == 0)
+            {
+                warningRemove("Low Insulin");
+                addWarning("No Insulin Remaining");
+            } 
+            else if (insulinReservoir <= 15)
+            {
+                addWarning("Low Insulin");
+            }
 
+            // Code to measure blood sugar
         }
 
         private void hardwareTimer_Tick(object sender, EventArgs e)
         {
+            // This isn't done - If condition happens, add warning - I'm just not sure what to have as the conditions for each of these
+            if (this.warnings.Contains("No Needle Unit") || this.warnings.Contains("Needle Failure"))
+            {
+                addWarning("No Needle Unit");
+                addWarning("Needle Failure");
+            }
 
+            if (this.warnings.Contains("Sensor Failure"))
+            {
+                addWarning("Sensor Failure");
+            }
+
+            if (this.warnings.Contains("Pump Failure"))
+            {
+                addWarning("Pump Failure");
+            }
+
+            if (this.warnings.Contains("Low Battery"))
+            {
+                addWarning("Low Battery");
+            }
         }
 
         private void alarmTimer_Tick(object sender, EventArgs e)
@@ -100,15 +150,30 @@ namespace Csci363_Project
         }
 
 
+        // Fixing Broken Things
+        public void replaceReservoir()
+        {
+            insulinReservoir = 100;
+        }
+
+
         // Code to add messages to insulinMessages
         public void addInsulinMessage(string message)
         {
             insulinMessages.Items.Add(message);
-            if (insulinMessages.Items.Count == 8)
+            if (insulinMessages.Items.Count >= 8)
             {
                 insulinMessages.Items.RemoveAt(1);
                 insulinMessages.Items.RemoveAt(0);
             }
+        }
+
+
+        //Code to add blood sugar level to list
+        public void addSugarLevel(int value)
+        {
+            bloodSugarLevels.Add(value);
+            bloodSugarLength += 1;
         }
 
 
@@ -163,16 +228,19 @@ namespace Csci363_Project
 
         private void addWarning(string warning)
         {
-            this.warnings.Add(warning);
-            length += 1;
+            if (!this.warnings.Contains(warning))
+            {
+                this.warnings.Add(warning);
+                length += 1;
 
-            if (length == 1) 
-            {
-                systemMessages.Items.Add(warning);
-            }
-            else if (systemMessageTimer.Enabled == false && length >= 2)
-            {
-                systemMessageTimer.Enabled = true;
+                if (length == 1)
+                {
+                    systemMessages.Items.Add(warning);
+                }
+                else if (systemMessageTimer.Enabled == false && length >= 2)
+                {
+                    systemMessageTimer.Enabled = true;
+                }
             }
         }
 
@@ -209,7 +277,11 @@ namespace Csci363_Project
         {
             // Tracks amount of times insulin button pushed in a 5 second interval
             insulinTimer.Enabled = true;
-            counter += 1;
+            if (counter < 5)
+            {
+                counter += 1;
+            }
+
             insulinCounter.Text = counter.ToString();
         }
 
@@ -233,7 +305,7 @@ namespace Csci363_Project
 
 
         // Calculates run time and returns string
-        private string calculateRunTime()
+        public string calculateRunTime()
         {
             string currentRunTime = "";
 
@@ -284,14 +356,12 @@ namespace Csci363_Project
         }
 
 
-        // System start and stop, as well as the button for toggling both
+        // System start and stop, as well as the button for toggling both. Does not reset total shots
         public void systemReset()
         {
             hour = 0;
             minute = 0;
             second = 0;
-
-            totalShots = 0;
         }
 
         private void startSystem()
@@ -388,7 +458,7 @@ namespace Csci363_Project
             startSystem();
         }
 
-
+   
         // Extra functions, don't delete
         private void sysMsgBox_SelectedIndexChanged(object sender, EventArgs e)
         {

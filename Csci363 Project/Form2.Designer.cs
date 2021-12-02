@@ -33,7 +33,6 @@ namespace Csci363_Project
             this.needleUnitButton = new System.Windows.Forms.Button();
             this.noInsulinButton = new System.Windows.Forms.Button();
             this.lowInsulinButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.pumpFailureButton = new System.Windows.Forms.Button();
             this.needleFailureButton = new System.Windows.Forms.Button();
             this.sensorFailureButton = new System.Windows.Forms.Button();
@@ -53,10 +52,14 @@ namespace Csci363_Project
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.setButton = new System.Windows.Forms.Button();
+            this.batteryButton = new System.Windows.Forms.Button();
+            this.bloodSugarLevelBox = new System.Windows.Forms.TextBox();
+            this.bloodSugarLevelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // insulinReservoirButton
             // 
+            this.insulinReservoirButton.Enabled = false;
             this.insulinReservoirButton.Location = new System.Drawing.Point(192, 89);
             this.insulinReservoirButton.Name = "insulinReservoirButton";
             this.insulinReservoirButton.Size = new System.Drawing.Size(148, 23);
@@ -68,6 +71,7 @@ namespace Csci363_Project
             // needleUnitButton
             // 
             this.needleUnitButton.AutoSize = true;
+            this.needleUnitButton.Enabled = false;
             this.needleUnitButton.Location = new System.Drawing.Point(38, 60);
             this.needleUnitButton.Name = "needleUnitButton";
             this.needleUnitButton.Size = new System.Drawing.Size(148, 23);
@@ -78,6 +82,7 @@ namespace Csci363_Project
             // 
             // noInsulinButton
             // 
+            this.noInsulinButton.Enabled = false;
             this.noInsulinButton.Location = new System.Drawing.Point(38, 89);
             this.noInsulinButton.Name = "noInsulinButton";
             this.noInsulinButton.Size = new System.Drawing.Size(148, 23);
@@ -88,6 +93,7 @@ namespace Csci363_Project
             // 
             // lowInsulinButton
             // 
+            this.lowInsulinButton.Enabled = false;
             this.lowInsulinButton.Location = new System.Drawing.Point(38, 118);
             this.lowInsulinButton.Name = "lowInsulinButton";
             this.lowInsulinButton.Size = new System.Drawing.Size(148, 23);
@@ -96,17 +102,9 @@ namespace Csci363_Project
             this.lowInsulinButton.UseVisualStyleBackColor = true;
             this.lowInsulinButton.Click += new System.EventHandler(this.lowInsulinButton_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(38, 147);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Low Battery Test";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // pumpFailureButton
             // 
+            this.pumpFailureButton.Enabled = false;
             this.pumpFailureButton.Location = new System.Drawing.Point(38, 176);
             this.pumpFailureButton.Name = "pumpFailureButton";
             this.pumpFailureButton.Size = new System.Drawing.Size(148, 23);
@@ -117,6 +115,7 @@ namespace Csci363_Project
             // 
             // needleFailureButton
             // 
+            this.needleFailureButton.Enabled = false;
             this.needleFailureButton.Location = new System.Drawing.Point(38, 205);
             this.needleFailureButton.Name = "needleFailureButton";
             this.needleFailureButton.Size = new System.Drawing.Size(148, 23);
@@ -127,6 +126,7 @@ namespace Csci363_Project
             // 
             // sensorFailureButton
             // 
+            this.sensorFailureButton.Enabled = false;
             this.sensorFailureButton.Location = new System.Drawing.Point(38, 234);
             this.sensorFailureButton.Name = "sensorFailureButton";
             this.sensorFailureButton.Size = new System.Drawing.Size(148, 23);
@@ -137,6 +137,7 @@ namespace Csci363_Project
             // 
             // sugarLowButton
             // 
+            this.sugarLowButton.Enabled = false;
             this.sugarLowButton.Location = new System.Drawing.Point(38, 263);
             this.sugarLowButton.Name = "sugarLowButton";
             this.sugarLowButton.Size = new System.Drawing.Size(148, 23);
@@ -165,6 +166,7 @@ namespace Csci363_Project
             // 
             // replaceNeedleUnitButton
             // 
+            this.replaceNeedleUnitButton.Enabled = false;
             this.replaceNeedleUnitButton.Location = new System.Drawing.Point(192, 60);
             this.replaceNeedleUnitButton.Name = "replaceNeedleUnitButton";
             this.replaceNeedleUnitButton.Size = new System.Drawing.Size(148, 23);
@@ -175,6 +177,7 @@ namespace Csci363_Project
             // 
             // replaceBatteryButton
             // 
+            this.replaceBatteryButton.Enabled = false;
             this.replaceBatteryButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.replaceBatteryButton.Location = new System.Drawing.Point(192, 118);
             this.replaceBatteryButton.Name = "replaceBatteryButton";
@@ -186,6 +189,7 @@ namespace Csci363_Project
             // 
             // replacePumpButton
             // 
+            this.replacePumpButton.Enabled = false;
             this.replacePumpButton.Location = new System.Drawing.Point(192, 147);
             this.replacePumpButton.Name = "replacePumpButton";
             this.replacePumpButton.Size = new System.Drawing.Size(148, 23);
@@ -196,6 +200,7 @@ namespace Csci363_Project
             // 
             // replaceSensorButton
             // 
+            this.replaceSensorButton.Enabled = false;
             this.replaceSensorButton.Location = new System.Drawing.Point(192, 176);
             this.replaceSensorButton.Name = "replaceSensorButton";
             this.replaceSensorButton.Size = new System.Drawing.Size(148, 23);
@@ -206,6 +211,7 @@ namespace Csci363_Project
             // 
             // consumeSugar
             // 
+            this.consumeSugar.Enabled = false;
             this.consumeSugar.Location = new System.Drawing.Point(192, 205);
             this.consumeSugar.Name = "consumeSugar";
             this.consumeSugar.Size = new System.Drawing.Size(148, 23);
@@ -281,11 +287,44 @@ namespace Csci363_Project
             this.setButton.UseVisualStyleBackColor = true;
             this.setButton.Click += new System.EventHandler(this.setButton_Click);
             // 
+            // batteryButton
+            // 
+            this.batteryButton.Enabled = false;
+            this.batteryButton.Location = new System.Drawing.Point(38, 147);
+            this.batteryButton.Name = "batteryButton";
+            this.batteryButton.Size = new System.Drawing.Size(148, 23);
+            this.batteryButton.TabIndex = 27;
+            this.batteryButton.Text = "Low Battery Test";
+            this.batteryButton.UseVisualStyleBackColor = true;
+            this.batteryButton.Click += new System.EventHandler(this.batteryButton_Click);
+            // 
+            // bloodSugarLevelBox
+            // 
+            this.bloodSugarLevelBox.Enabled = false;
+            this.bloodSugarLevelBox.Location = new System.Drawing.Point(678, 362);
+            this.bloodSugarLevelBox.Name = "bloodSugarLevelBox";
+            this.bloodSugarLevelBox.Size = new System.Drawing.Size(100, 20);
+            this.bloodSugarLevelBox.TabIndex = 28;
+            // 
+            // bloodSugarLevelButton
+            // 
+            this.bloodSugarLevelButton.Enabled = false;
+            this.bloodSugarLevelButton.Location = new System.Drawing.Point(689, 388);
+            this.bloodSugarLevelButton.Name = "bloodSugarLevelButton";
+            this.bloodSugarLevelButton.Size = new System.Drawing.Size(75, 23);
+            this.bloodSugarLevelButton.TabIndex = 29;
+            this.bloodSugarLevelButton.Text = "Input";
+            this.bloodSugarLevelButton.UseVisualStyleBackColor = true;
+            this.bloodSugarLevelButton.Click += new System.EventHandler(this.bloodSugarLevelButton_Click);
+            // 
             // Simulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.bloodSugarLevelButton);
+            this.Controls.Add(this.bloodSugarLevelBox);
+            this.Controls.Add(this.batteryButton);
             this.Controls.Add(this.setButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -305,7 +344,6 @@ namespace Csci363_Project
             this.Controls.Add(this.sensorFailureButton);
             this.Controls.Add(this.needleFailureButton);
             this.Controls.Add(this.pumpFailureButton);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.lowInsulinButton);
             this.Controls.Add(this.noInsulinButton);
             this.Controls.Add(this.needleUnitButton);
@@ -325,7 +363,6 @@ namespace Csci363_Project
         private System.Windows.Forms.Button needleUnitButton;
         private System.Windows.Forms.Button noInsulinButton;
         private System.Windows.Forms.Button lowInsulinButton;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button pumpFailureButton;
         private System.Windows.Forms.Button needleFailureButton;
         private System.Windows.Forms.Button sensorFailureButton;
@@ -345,5 +382,8 @@ namespace Csci363_Project
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button setButton;
+        private System.Windows.Forms.Button batteryButton;
+        private System.Windows.Forms.TextBox bloodSugarLevelBox;
+        private System.Windows.Forms.Button bloodSugarLevelButton;
     }
 }

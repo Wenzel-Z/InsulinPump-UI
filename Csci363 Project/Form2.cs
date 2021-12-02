@@ -46,6 +46,11 @@ namespace Csci363_Project
            _form1.systemWarnings("Low Insulin Level");
         }
 
+        private void batteryButton_Click(object sender, EventArgs e)
+        {
+            _form1.systemWarnings("Low Battery");
+        }
+
         private void pumpFailureButton_Click(object sender, EventArgs e)
         {
             _form1.systemWarnings("Pump Failure");
@@ -66,39 +71,46 @@ namespace Csci363_Project
             _form1.systemWarnings("Sugar Low");
         }
 
+        
+        // Fix things
         private void replaceNeedleUnitButton_Click(object sender, EventArgs e)
         {
             _form1.warningRemove("No Needle Unit");
             _form1.warningRemove("Needle Failure");
+            _form1.addInsulinMessage("Needle Unit Replaced at " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
-
-        // Fix errors
         private void insulinReservoirButton_Click(object sender, EventArgs e)
         {
-            _form1.systemReset();
+            _form1.systemReset(); // This may not be needed, the system reqs are confusing
+            _form1.replaceReservoir();
             _form1.warningRemove("Low Insulin Level");
             _form1.warningRemove("No Insulin Remaining");
+            _form1.addInsulinMessage("Insulin reservoir replaced at " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
         private void replaceBatteryButton_Click(object sender, EventArgs e)
         {
             _form1.warningRemove("Low Battery");
+            _form1.addInsulinMessage("Battery replaced at " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
         private void replacePumpButton_Click(object sender, EventArgs e)
         {
             _form1.warningRemove("Pump Failure");
+            _form1.addInsulinMessage("Pump replaced at " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
         private void replaceSensorButton_Click(object sender, EventArgs e)
         {
             _form1.warningRemove("Sensor Failure");
+            _form1.addInsulinMessage("Sensor replaced at " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
         private void consumeSugar_Click(object sender, EventArgs e)
         {
             _form1.warningRemove("Sugar Low");
+            _form1.addInsulinMessage("Sugar normalized at " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
 
@@ -115,14 +127,39 @@ namespace Csci363_Project
                 int hardware = int.Parse(hardwareBox.Text);
                 int alarm = int.Parse(alarmBox.Text);
 
+                bloodSugarLevelBox.Enabled = true;
+                bloodSugarLevelButton.Enabled = true;
+
                 bloodSugarBox.Enabled = false;
                 hardwareBox.Enabled = false;
                 alarmBox.Enabled = false;
                 setButton.Enabled = false;
 
+                needleUnitButton.Enabled = true;
+                noInsulinButton.Enabled = true;
+                lowInsulinButton.Enabled = true;
+                batteryButton.Enabled = true;
+                pumpFailureButton.Enabled = true;
+                needleFailureButton.Enabled = true;
+                sensorFailureButton.Enabled = true;
+                sugarLowButton.Enabled = true;
+
+                replaceNeedleUnitButton.Enabled = true;
+                insulinReservoirButton.Enabled = true;
+                replaceBatteryButton.Enabled = true;
+                replacePumpButton.Enabled = true;
+                replaceSensorButton.Enabled = true;
+                consumeSugar.Enabled = true;
+
                 _form1.setParameters(bloodSugar, hardware, alarm);
             }
-           
+        }
+
+        // Code to input blood sugar levels
+        private void bloodSugarLevelButton_Click(object sender, EventArgs e)
+        {
+
+            bloodSugarLevelBox.Clear();
         }
     }
 }
