@@ -18,7 +18,8 @@ namespace Csci363_Project
         int insulinReservoir = 100;
 
         // Used to track blood sugar levels
-        List<int> bloodSugarLevels = new List<int>();
+        List<double> bloodSugarLevels = new List<double>();
+        List<string> bloodSugarLevelsTime = new List<string>();
         int bloodSugarLength;
 
 
@@ -69,32 +70,7 @@ namespace Csci363_Project
         private void insulinTimer_Tick(object sender, EventArgs e)
         {
             // Used to time 5 seconds for insulin delivery
-            string counterString = counter.ToString();
-            string timeAtDelivery = DateTime.Now.ToString("HH:mm:ss");
-            string timeSinceReset = calculateRunTime();
-
-            if (insulinReservoir >= counter && totalShots <= 100)
-            {
-                insulinReservoir -= counter;
-                totalShots += counter;
-
-                string messageToAdd = counterString + "ml insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset + ".";
-                string secondMessage = "Total shots delivered during runtime: " + totalShots + ". There are " + insulinReservoir + "ml remaining.";
-
-                addInsulinMessage(messageToAdd);
-                addInsulinMessage(secondMessage);
-            }
-            else
-            {
-                if (insulinReservoir >= counter) 
-                {
-                    addInsulinMessage("Not enough insulin available in the reservoir.");
-                }
-                else
-                {
-                    addInsulinMessage("Total shots today have exceeded acceptable limits");
-                }
-            }
+            deliverInsulin(counter);
 
             insulinTimer.Enabled = false;
             insulinCounter.Text = " ";
@@ -117,6 +93,23 @@ namespace Csci363_Project
             }
 
             // Code to measure blood sugar
+            if (bloodSugarLength >= 2)
+            {
+                double difference = bloodSugarLevels[bloodSugarLength-1] - bloodSugarLevels[bloodSugarLength - 2];
+
+                if (difference >= 10) // Blood sugar is rising
+                {
+                    deliverInsulin(2);
+                } 
+                else if  (-10 < difference && difference < 10) // Difference is constant? I have no idea if these are good values.
+                {
+                    // Do stuff, or nothing?
+                } 
+                else // Blood sugar is dropping
+                {
+                    addWarning("Sugar Low");
+                }
+            }
         }
 
         private void hardwareTimer_Tick(object sender, EventArgs e)
@@ -170,8 +163,9 @@ namespace Csci363_Project
 
 
         //Code to add blood sugar level to list
-        public void addSugarLevel(int value)
+        public void addSugarLevel(double value)
         {
+            bloodSugarLevelsTime.Add(DateTime.Now.ToString("HH:mm:ss"));
             bloodSugarLevels.Add(value);
             bloodSugarLength += 1;
         }
@@ -458,7 +452,43 @@ namespace Csci363_Project
             startSystem();
         }
 
-   
+
+        // Code to deliver insulin
+        private void deliverInsulin(int dose)
+        {
+            string doseString = dose.ToString();
+            string timeAtDelivery = DateTime.Now.ToString("HH:mm:ss");
+            string timeSinceReset = calculateRunTime();
+
+            double currentSugarLevel = bloodSugarLevels[bloodSugarLength - 1];
+
+            if (insulinReservoir >= dose && totalShots <= 100)
+            {
+                insulinReservoir -= dose;
+                totalShots += dose;
+
+                string messageToAdd = doseString + " ml insulin dose delivery at " + timeAtDelivery + ", at runtime " + timeSinceReset + ".";
+                string secondMessage = "Total shots delivered during runtime: " + totalShots + ". There are " + insulinReservoir + " ml remaining.";
+
+                addInsulinMessage(messageToAdd);
+                addInsulinMessage(secondMessage);
+
+                addSugarLevel(currentSugarLevel - (dose * 2.5));
+            }
+            else
+            {
+                if (insulinReservoir >= dose)
+                {
+                    addInsulinMessage("Not enough insulin available in the reservoir.");
+                }
+                else
+                {
+                    addInsulinMessage("Total shots today have exceeded acceptable limits");
+                }
+            }
+        }
+
+
         // Extra functions, don't delete
         private void sysMsgBox_SelectedIndexChanged(object sender, EventArgs e)
         {
