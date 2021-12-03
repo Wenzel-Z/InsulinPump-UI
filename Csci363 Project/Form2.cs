@@ -116,6 +116,7 @@ namespace Csci363_Project
         }
 
 
+
         // Code related to the inital settings
         private void setButton_Click(object sender, EventArgs e)
         {
@@ -156,6 +157,7 @@ namespace Csci363_Project
                 _form1.setParameters(bloodSugar, hardware, alarm);
             }
         }
+
 
         // Code to input blood sugar levels
         private void bloodSugarLevelButton_Click(object sender, EventArgs e)

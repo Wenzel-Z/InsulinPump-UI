@@ -56,7 +56,7 @@ namespace Csci363_Project
             // clock
             // 
             this.clock.AutoSize = true;
-            this.clock.Location = new System.Drawing.Point(170, 9);
+            this.clock.Location = new System.Drawing.Point(24, 9);
             this.clock.Name = "clock";
             this.clock.Size = new System.Drawing.Size(49, 13);
             this.clock.TabIndex = 0;
@@ -65,10 +65,10 @@ namespace Csci363_Project
             // insulinButton
             // 
             this.insulinButton.Enabled = false;
-            this.insulinButton.Location = new System.Drawing.Point(12, 486);
+            this.insulinButton.Location = new System.Drawing.Point(64, 243);
             this.insulinButton.Name = "insulinButton";
             this.insulinButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.insulinButton.Size = new System.Drawing.Size(155, 23);
+            this.insulinButton.Size = new System.Drawing.Size(291, 74);
             this.insulinButton.TabIndex = 0;
             this.insulinButton.Text = "Administer 1 does of insulin";
             this.insulinButton.UseMnemonic = false;
@@ -77,13 +77,14 @@ namespace Csci363_Project
             // 
             // operatorButton
             // 
+            this.operatorButton.BackColor = System.Drawing.SystemColors.Control;
             this.operatorButton.Enabled = false;
-            this.operatorButton.Location = new System.Drawing.Point(12, 529);
+            this.operatorButton.Location = new System.Drawing.Point(64, 391);
             this.operatorButton.Name = "operatorButton";
-            this.operatorButton.Size = new System.Drawing.Size(155, 23);
+            this.operatorButton.Size = new System.Drawing.Size(291, 71);
             this.operatorButton.TabIndex = 2;
             this.operatorButton.Text = "Change Operation Mode";
-            this.operatorButton.UseVisualStyleBackColor = true;
+            this.operatorButton.UseVisualStyleBackColor = false;
             this.operatorButton.Click += new System.EventHandler(this.operatorButton_Click);
             // 
             // operationModeLabel
@@ -92,7 +93,7 @@ namespace Csci363_Project
             this.operationModeLabel.BackColor = System.Drawing.SystemColors.Control;
             this.operationModeLabel.Enabled = false;
             this.operationModeLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.operationModeLabel.Location = new System.Drawing.Point(173, 534);
+            this.operationModeLabel.Location = new System.Drawing.Point(193, 375);
             this.operationModeLabel.Name = "operationModeLabel";
             this.operationModeLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.operationModeLabel.Size = new System.Drawing.Size(29, 13);
@@ -121,7 +122,7 @@ namespace Csci363_Project
             // runtimeLabel
             // 
             this.runtimeLabel.AutoSize = true;
-            this.runtimeLabel.Location = new System.Drawing.Point(170, 34);
+            this.runtimeLabel.Location = new System.Drawing.Point(354, 9);
             this.runtimeLabel.Name = "runtimeLabel";
             this.runtimeLabel.Size = new System.Drawing.Size(49, 13);
             this.runtimeLabel.TabIndex = 5;
@@ -130,7 +131,7 @@ namespace Csci363_Project
             // insulinMessages
             // 
             this.insulinMessages.FormattingEnabled = true;
-            this.insulinMessages.Location = new System.Drawing.Point(12, 119);
+            this.insulinMessages.Location = new System.Drawing.Point(12, 50);
             this.insulinMessages.Name = "insulinMessages";
             this.insulinMessages.Size = new System.Drawing.Size(402, 95);
             this.insulinMessages.TabIndex = 8;
@@ -139,7 +140,7 @@ namespace Csci363_Project
             // systemMessages
             // 
             this.systemMessages.FormattingEnabled = true;
-            this.systemMessages.Location = new System.Drawing.Point(12, 288);
+            this.systemMessages.Location = new System.Drawing.Point(12, 174);
             this.systemMessages.Name = "systemMessages";
             this.systemMessages.Size = new System.Drawing.Size(402, 43);
             this.systemMessages.TabIndex = 9;
@@ -153,9 +154,10 @@ namespace Csci363_Project
             // offButton
             // 
             this.offButton.Enabled = false;
-            this.offButton.Location = new System.Drawing.Point(282, 524);
+            this.offButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.offButton.Location = new System.Drawing.Point(64, 481);
             this.offButton.Name = "offButton";
-            this.offButton.Size = new System.Drawing.Size(132, 23);
+            this.offButton.Size = new System.Drawing.Size(291, 73);
             this.offButton.TabIndex = 10;
             this.offButton.Text = "Turn Off";
             this.offButton.UseVisualStyleBackColor = true;
@@ -180,6 +182,7 @@ namespace Csci363_Project
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(426, 566);
             this.Controls.Add(this.offButton);
             this.Controls.Add(this.systemMessages);
@@ -190,6 +193,7 @@ namespace Csci363_Project
             this.Controls.Add(this.operatorButton);
             this.Controls.Add(this.insulinButton);
             this.Controls.Add(this.clock);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
             this.Text = "Insulin Display";
             this.Load += new System.EventHandler(this.Form1_Load);

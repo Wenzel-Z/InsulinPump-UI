@@ -184,6 +184,7 @@ namespace Csci363_Project
 
         public void systemWarnings(string warning)
         {
+            // This isn't needed with add warnings
             switch (warning)
             {
                 case "No Needle Unit":
@@ -460,8 +461,6 @@ namespace Csci363_Project
             string timeAtDelivery = DateTime.Now.ToString("HH:mm:ss");
             string timeSinceReset = calculateRunTime();
 
-            double currentSugarLevel = bloodSugarLevels[bloodSugarLength - 1];
-
             if (insulinReservoir >= dose && totalShots <= 100)
             {
                 insulinReservoir -= dose;
@@ -472,8 +471,6 @@ namespace Csci363_Project
 
                 addInsulinMessage(messageToAdd);
                 addInsulinMessage(secondMessage);
-
-                addSugarLevel(currentSugarLevel - (dose * 2.5));
             }
             else
             {
