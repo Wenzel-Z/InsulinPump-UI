@@ -30,6 +30,11 @@ namespace Csci363_Project
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.clockTimer = new System.Windows.Forms.Timer(this.components);
             this.clock = new System.Windows.Forms.Label();
             this.insulinButton = new System.Windows.Forms.Button();
@@ -40,12 +45,18 @@ namespace Csci363_Project
             this.runtimeTimer = new System.Windows.Forms.Timer(this.components);
             this.runtimeLabel = new System.Windows.Forms.Label();
             this.insulinMessages = new System.Windows.Forms.ListBox();
-            this.systemMessages = new System.Windows.Forms.ListBox();
             this.systemMessageTimer = new System.Windows.Forms.Timer(this.components);
             this.offButton = new System.Windows.Forms.Button();
             this.bloodSugarTimer = new System.Windows.Forms.Timer(this.components);
             this.hardwareTimer = new System.Windows.Forms.Timer(this.components);
             this.alarmTimer = new System.Windows.Forms.Timer(this.components);
+            this.exitButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.errorLabel = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.insulinDoseLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // clockTimer
@@ -56,30 +67,43 @@ namespace Csci363_Project
             // clock
             // 
             this.clock.AutoSize = true;
-            this.clock.Location = new System.Drawing.Point(24, 9);
+            this.clock.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.clock.Location = new System.Drawing.Point(44, 16);
             this.clock.Name = "clock";
             this.clock.Size = new System.Drawing.Size(49, 13);
             this.clock.TabIndex = 0;
             this.clock.Text = "00:00:00";
+            this.clock.Click += new System.EventHandler(this.clock_Click);
             // 
             // insulinButton
             // 
+            this.insulinButton.BackColor = System.Drawing.Color.LightSteelBlue;
             this.insulinButton.Enabled = false;
-            this.insulinButton.Location = new System.Drawing.Point(64, 243);
+            this.insulinButton.FlatAppearance.BorderSize = 0;
+            this.insulinButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.insulinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.insulinButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(60)))), ((int)(((byte)(120)))));
+            this.insulinButton.Location = new System.Drawing.Point(64, 223);
             this.insulinButton.Name = "insulinButton";
             this.insulinButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.insulinButton.Size = new System.Drawing.Size(291, 74);
             this.insulinButton.TabIndex = 0;
-            this.insulinButton.Text = "Administer 1 does of insulin";
+            this.insulinButton.Text = "Administer 1 dose of insulin";
             this.insulinButton.UseMnemonic = false;
-            this.insulinButton.UseVisualStyleBackColor = true;
+            this.insulinButton.UseVisualStyleBackColor = false;
+            this.insulinButton.Visible = false;
             this.insulinButton.Click += new System.EventHandler(this.insulinButton_Click);
             // 
             // operatorButton
             // 
-            this.operatorButton.BackColor = System.Drawing.SystemColors.Control;
+            this.operatorButton.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.operatorButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.operatorButton.Enabled = false;
-            this.operatorButton.Location = new System.Drawing.Point(64, 391);
+            this.operatorButton.FlatAppearance.BorderSize = 0;
+            this.operatorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.operatorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.operatorButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(60)))), ((int)(((byte)(120)))));
+            this.operatorButton.Location = new System.Drawing.Point(64, 349);
             this.operatorButton.Name = "operatorButton";
             this.operatorButton.Size = new System.Drawing.Size(291, 71);
             this.operatorButton.TabIndex = 2;
@@ -89,25 +113,26 @@ namespace Csci363_Project
             // 
             // operationModeLabel
             // 
-            this.operationModeLabel.AutoSize = true;
-            this.operationModeLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.operationModeLabel.Enabled = false;
-            this.operationModeLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.operationModeLabel.Location = new System.Drawing.Point(193, 375);
+            this.operationModeLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.operationModeLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.operationModeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.operationModeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(60)))), ((int)(((byte)(120)))));
+            this.operationModeLabel.Location = new System.Drawing.Point(185, 432);
             this.operationModeLabel.Name = "operationModeLabel";
             this.operationModeLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.operationModeLabel.Size = new System.Drawing.Size(29, 13);
+            this.operationModeLabel.Size = new System.Drawing.Size(61, 16);
             this.operationModeLabel.TabIndex = 0;
             this.operationModeLabel.Text = "Auto";
+            this.operationModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.operationModeLabel.UseWaitCursor = true;
             // 
             // insulinCounter
             // 
-            this.insulinCounter.AutoSize = true;
-            this.insulinCounter.Location = new System.Drawing.Point(170, 491);
+            this.insulinCounter.Location = new System.Drawing.Point(64, 207);
             this.insulinCounter.Name = "insulinCounter";
-            this.insulinCounter.Size = new System.Drawing.Size(0, 13);
+            this.insulinCounter.Size = new System.Drawing.Size(291, 13);
             this.insulinCounter.TabIndex = 3;
+            this.insulinCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // insulinTimer
             // 
@@ -122,7 +147,8 @@ namespace Csci363_Project
             // runtimeLabel
             // 
             this.runtimeLabel.AutoSize = true;
-            this.runtimeLabel.Location = new System.Drawing.Point(354, 9);
+            this.runtimeLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.runtimeLabel.Location = new System.Drawing.Point(354, 16);
             this.runtimeLabel.Name = "runtimeLabel";
             this.runtimeLabel.Size = new System.Drawing.Size(49, 13);
             this.runtimeLabel.TabIndex = 5;
@@ -130,21 +156,15 @@ namespace Csci363_Project
             // 
             // insulinMessages
             // 
+            this.insulinMessages.BackColor = System.Drawing.Color.White;
+            this.insulinMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.insulinMessages.ForeColor = System.Drawing.SystemColors.WindowText;
             this.insulinMessages.FormattingEnabled = true;
             this.insulinMessages.Location = new System.Drawing.Point(12, 50);
             this.insulinMessages.Name = "insulinMessages";
-            this.insulinMessages.Size = new System.Drawing.Size(402, 95);
+            this.insulinMessages.Size = new System.Drawing.Size(402, 93);
             this.insulinMessages.TabIndex = 8;
             this.insulinMessages.SelectedIndexChanged += new System.EventHandler(this.sysMsgBox_SelectedIndexChanged);
-            // 
-            // systemMessages
-            // 
-            this.systemMessages.FormattingEnabled = true;
-            this.systemMessages.Location = new System.Drawing.Point(12, 174);
-            this.systemMessages.Name = "systemMessages";
-            this.systemMessages.Size = new System.Drawing.Size(402, 43);
-            this.systemMessages.TabIndex = 9;
-            this.systemMessages.SelectedIndexChanged += new System.EventHandler(this.systemMessages_SelectedIndexChanged);
             // 
             // systemMessageTimer
             // 
@@ -153,14 +173,19 @@ namespace Csci363_Project
             // 
             // offButton
             // 
+            this.offButton.BackColor = System.Drawing.Color.LightSteelBlue;
             this.offButton.Enabled = false;
-            this.offButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.offButton.Location = new System.Drawing.Point(64, 481);
+            this.offButton.FlatAppearance.BorderSize = 0;
+            this.offButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.offButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.offButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(60)))), ((int)(((byte)(120)))));
+            this.offButton.Location = new System.Drawing.Point(12, 520);
             this.offButton.Name = "offButton";
-            this.offButton.Size = new System.Drawing.Size(291, 73);
+            this.offButton.Size = new System.Drawing.Size(182, 32);
             this.offButton.TabIndex = 10;
+            this.offButton.TabStop = false;
             this.offButton.Text = "Turn Off";
-            this.offButton.UseVisualStyleBackColor = true;
+            this.offButton.UseVisualStyleBackColor = false;
             this.offButton.Click += new System.EventHandler(this.offButton_Click);
             // 
             // bloodSugarTimer
@@ -178,14 +203,107 @@ namespace Csci363_Project
             this.alarmTimer.Interval = 1001;
             this.alarmTimer.Tick += new System.EventHandler(this.alarmTimer_Tick);
             // 
+            // exitButton
+            // 
+            this.exitButton.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.exitButton.FlatAppearance.BorderSize = 0;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(60)))), ((int)(((byte)(120)))));
+            this.exitButton.Location = new System.Drawing.Point(232, 518);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(182, 34);
+            this.exitButton.TabIndex = 11;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pictureBox1.Image = global::Csci363_Project.Properties.Resources.clock1;
+            this.pictureBox1.Location = new System.Drawing.Point(13, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorLabel.ForeColor = System.Drawing.Color.Maroon;
+            this.errorLabel.Location = new System.Drawing.Point(700, 451);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.errorLabel.Size = new System.Drawing.Size(178, 23);
+            this.errorLabel.TabIndex = 13;
+            this.errorLabel.Text = "No insulin remaining";
+            this.errorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.errorLabel.Visible = false;
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.Color.WhiteSmoke;
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
+            this.chart1.Location = new System.Drawing.Point(556, 50);
+            this.chart1.Name = "chart1";
+            series7.BorderWidth = 3;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series7.Legend = "Legend1";
+            series7.MarkerBorderColor = System.Drawing.Color.Aqua;
+            series7.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series7.Name = "Series1";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series8.BorderWidth = 2;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series8.Legend = "Legend1";
+            series8.MarkerBorderColor = System.Drawing.Color.Aqua;
+            series8.Name = "Series2";
+            series9.BorderWidth = 2;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series9.Legend = "Legend1";
+            series9.MarkerBorderColor = System.Drawing.Color.Red;
+            series9.Name = "Series3";
+            this.chart1.Series.Add(series7);
+            this.chart1.Series.Add(series8);
+            this.chart1.Series.Add(series9);
+            this.chart1.Size = new System.Drawing.Size(435, 300);
+            this.chart1.TabIndex = 14;
+            this.chart1.Text = "chart1";
+            // 
+            // insulinDoseLabel
+            // 
+            this.insulinDoseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.insulinDoseLabel.Location = new System.Drawing.Point(611, 21);
+            this.insulinDoseLabel.Name = "insulinDoseLabel";
+            this.insulinDoseLabel.Size = new System.Drawing.Size(359, 23);
+            this.insulinDoseLabel.TabIndex = 15;
+            this.insulinDoseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(426, 566);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(1026, 566);
+            this.Controls.Add(this.insulinDoseLabel);
+            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.errorLabel);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.offButton);
-            this.Controls.Add(this.systemMessages);
             this.Controls.Add(this.insulinMessages);
             this.Controls.Add(this.runtimeLabel);
             this.Controls.Add(this.insulinCounter);
@@ -193,10 +311,12 @@ namespace Csci363_Project
             this.Controls.Add(this.operatorButton);
             this.Controls.Add(this.insulinButton);
             this.Controls.Add(this.clock);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Insulin Display";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,7 +331,6 @@ namespace Csci363_Project
         private System.Windows.Forms.Label insulinCounter;
         private System.Windows.Forms.Timer insulinTimer;
         private System.Windows.Forms.Label runtimeLabel;
-        private System.Windows.Forms.ListBox systemMessages;
         private System.Windows.Forms.Button offButton;
         private System.Windows.Forms.Timer bloodSugarTimer;
         private System.Windows.Forms.Timer hardwareTimer;
@@ -219,6 +338,11 @@ namespace Csci363_Project
         private System.Windows.Forms.Timer runtimeTimer;
         private System.Windows.Forms.Timer systemMessageTimer;
         private System.Windows.Forms.ListBox insulinMessages;
+        private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label insulinDoseLabel;
     }
 }
 

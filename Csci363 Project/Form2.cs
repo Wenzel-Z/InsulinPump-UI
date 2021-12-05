@@ -31,8 +31,6 @@ namespace Csci363_Project
 
 
         // Break things
-        // Thisadds warning directly to the warning list rather than going through the self-tests, I think this should be changed,
-        // but there aren't many standards for the self-tests, so its difficult to implement
         private void needleUnitButton_Click(object sender, EventArgs e)
         {
             _form1.systemWarnings("No Needle Unit");
@@ -130,6 +128,8 @@ namespace Csci363_Project
                 int hardware = int.Parse(hardwareBox.Text);
                 int alarm = int.Parse(alarmBox.Text);
 
+                runtimeAddButton.Enabled = true;
+
                 bloodSugarLevelBox.Enabled = true;
                 bloodSugarLevelButton.Enabled = true;
 
@@ -165,6 +165,11 @@ namespace Csci363_Project
             double bloodSugarLevel = double.Parse(bloodSugarLevelBox.Text);
             _form1.addSugarLevel(bloodSugarLevel);
             bloodSugarLevelBox.Clear();
+        }
+
+        private void runtimeAddButton_Click(object sender, EventArgs e)
+        {
+            _form1.addRuntime();
         }
     }
 }

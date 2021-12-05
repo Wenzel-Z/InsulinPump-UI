@@ -55,6 +55,8 @@ namespace Csci363_Project
             this.batteryButton = new System.Windows.Forms.Button();
             this.bloodSugarLevelBox = new System.Windows.Forms.TextBox();
             this.bloodSugarLevelButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.runtimeAddButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // insulinReservoirButton
@@ -222,21 +224,21 @@ namespace Csci363_Project
             // 
             // bloodSugarBox
             // 
-            this.bloodSugarBox.Location = new System.Drawing.Point(678, 109);
+            this.bloodSugarBox.Location = new System.Drawing.Point(489, 121);
             this.bloodSugarBox.Name = "bloodSugarBox";
             this.bloodSugarBox.Size = new System.Drawing.Size(100, 20);
             this.bloodSugarBox.TabIndex = 19;
             // 
             // hardwareBox
             // 
-            this.hardwareBox.Location = new System.Drawing.Point(678, 135);
+            this.hardwareBox.Location = new System.Drawing.Point(489, 147);
             this.hardwareBox.Name = "hardwareBox";
             this.hardwareBox.Size = new System.Drawing.Size(100, 20);
             this.hardwareBox.TabIndex = 20;
             // 
             // alarmBox
             // 
-            this.alarmBox.Location = new System.Drawing.Point(678, 161);
+            this.alarmBox.Location = new System.Drawing.Point(489, 173);
             this.alarmBox.Name = "alarmBox";
             this.alarmBox.Size = new System.Drawing.Size(100, 20);
             this.alarmBox.TabIndex = 21;
@@ -244,7 +246,7 @@ namespace Csci363_Project
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(550, 112);
+            this.label4.Location = new System.Drawing.Point(361, 124);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 13);
             this.label4.TabIndex = 22;
@@ -253,7 +255,7 @@ namespace Csci363_Project
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(550, 138);
+            this.label5.Location = new System.Drawing.Point(361, 150);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(101, 13);
             this.label5.TabIndex = 23;
@@ -262,7 +264,7 @@ namespace Csci363_Project
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(550, 164);
+            this.label6.Location = new System.Drawing.Point(361, 176);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 24;
@@ -271,7 +273,7 @@ namespace Csci363_Project
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(676, 93);
+            this.label7.Location = new System.Drawing.Point(487, 105);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(102, 13);
             this.label7.TabIndex = 25;
@@ -279,7 +281,7 @@ namespace Csci363_Project
             // 
             // setButton
             // 
-            this.setButton.Location = new System.Drawing.Point(689, 187);
+            this.setButton.Location = new System.Drawing.Point(500, 199);
             this.setButton.Name = "setButton";
             this.setButton.Size = new System.Drawing.Size(75, 23);
             this.setButton.TabIndex = 26;
@@ -301,7 +303,7 @@ namespace Csci363_Project
             // bloodSugarLevelBox
             // 
             this.bloodSugarLevelBox.Enabled = false;
-            this.bloodSugarLevelBox.Location = new System.Drawing.Point(678, 362);
+            this.bloodSugarLevelBox.Location = new System.Drawing.Point(489, 374);
             this.bloodSugarLevelBox.Name = "bloodSugarLevelBox";
             this.bloodSugarLevelBox.Size = new System.Drawing.Size(100, 20);
             this.bloodSugarLevelBox.TabIndex = 28;
@@ -309,7 +311,7 @@ namespace Csci363_Project
             // bloodSugarLevelButton
             // 
             this.bloodSugarLevelButton.Enabled = false;
-            this.bloodSugarLevelButton.Location = new System.Drawing.Point(689, 388);
+            this.bloodSugarLevelButton.Location = new System.Drawing.Point(500, 400);
             this.bloodSugarLevelButton.Name = "bloodSugarLevelButton";
             this.bloodSugarLevelButton.Size = new System.Drawing.Size(75, 23);
             this.bloodSugarLevelButton.TabIndex = 29;
@@ -317,11 +319,33 @@ namespace Csci363_Project
             this.bloodSugarLevelButton.UseVisualStyleBackColor = true;
             this.bloodSugarLevelButton.Click += new System.EventHandler(this.bloodSugarLevelButton_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(374, 377);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(109, 13);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "Add blood sugar level";
+            // 
+            // runtimeAddButton
+            // 
+            this.runtimeAddButton.Enabled = false;
+            this.runtimeAddButton.Location = new System.Drawing.Point(474, 294);
+            this.runtimeAddButton.Name = "runtimeAddButton";
+            this.runtimeAddButton.Size = new System.Drawing.Size(120, 23);
+            this.runtimeAddButton.TabIndex = 31;
+            this.runtimeAddButton.Text = "Add hour to runtime";
+            this.runtimeAddButton.UseVisualStyleBackColor = true;
+            this.runtimeAddButton.Click += new System.EventHandler(this.runtimeAddButton_Click);
+            // 
             // Simulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(606, 450);
+            this.Controls.Add(this.runtimeAddButton);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.bloodSugarLevelButton);
             this.Controls.Add(this.bloodSugarLevelBox);
             this.Controls.Add(this.batteryButton);
@@ -385,5 +409,7 @@ namespace Csci363_Project
         private System.Windows.Forms.Button batteryButton;
         private System.Windows.Forms.TextBox bloodSugarLevelBox;
         private System.Windows.Forms.Button bloodSugarLevelButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button runtimeAddButton;
     }
 }

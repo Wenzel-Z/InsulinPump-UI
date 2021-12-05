@@ -19,12 +19,11 @@ namespace Csci363_Project
 
         // Used to track blood sugar levels
         List<double> bloodSugarLevels = new List<double>();
-        List<string> bloodSugarLevelsTime = new List<string>();
-        int bloodSugarLength;
+        List<double> bloodSugarLevelsTime = new List<double>();
 
 
         // Used to track runtime timer
-        int hour = 0;
+        int hour = 20;
         int minute = 0;
         int second = 0;
 
@@ -43,6 +42,30 @@ namespace Csci363_Project
             // Loads second form after first form is loaded
             Simulator simulation = new Simulator(this);
             simulation.Show();
+
+            chart1.ChartAreas[0].AxisX.Maximum = 12;
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+
+            chart1.ChartAreas[0].AxisY.Minimum = 0;
+            chart1.ChartAreas[0].AxisY.Maximum = 300;
+
+            chart1.ChartAreas[0].AxisX.Title = "Time (hours)";
+            chart1.ChartAreas[0].AxisY.Title = "Blood Sugar (mg/dL)";
+
+            var bloodSugar = new List<double>() {150, 200, 140, 175, 160, 125};
+            var runtimes = new List<double>() {0, 4, 8, 12, 16, 20};
+
+            for (int i = 0; i < bloodSugar.Count(); i++) 
+            {
+                chart1.Series[0].Points.AddXY(runtimes[i], bloodSugar[i]);
+            }
+
+
+            for (int i = 0; i < 26; i++)
+            {
+                chart1.Series[1].Points.AddXY(i, 80);
+                chart1.Series[2].Points.AddXY(i, 160);
+            }
         }
 
 
@@ -60,7 +83,7 @@ namespace Csci363_Project
             string currentRunTime = calculateRunTime();
             runtimeLabel.Text = currentRunTime;
 
-            if (hour == 24)
+            if (hour >= 24)
             {
                 systemReset();
                 totalShots = 0;
@@ -82,34 +105,7 @@ namespace Csci363_Project
         // Timers for self-tests
         private void bloodSugarTimer_Tick(object sender, EventArgs e)
         {
-            if (insulinReservoir == 0)
-            {
-                warningRemove("Low Insulin");
-                addWarning("No Insulin Remaining");
-            } 
-            else if (insulinReservoir <= 15)
-            {
-                addWarning("Low Insulin");
-            }
-
-            // Code to measure blood sugar
-            if (bloodSugarLength >= 2)
-            {
-                double difference = bloodSugarLevels[bloodSugarLength-1] - bloodSugarLevels[bloodSugarLength - 2];
-
-                if (difference >= 10) // Blood sugar is rising
-                {
-                    deliverInsulin(2);
-                } 
-                else if  (-10 < difference && difference < 10) // Difference is constant? I have no idea if these are good values.
-                {
-                    // Do stuff, or nothing?
-                } 
-                else // Blood sugar is dropping
-                {
-                    addWarning("Sugar Low");
-                }
-            }
+            
         }
 
         private void hardwareTimer_Tick(object sender, EventArgs e)
@@ -165,9 +161,48 @@ namespace Csci363_Project
         //Code to add blood sugar level to list
         public void addSugarLevel(double value)
         {
-            bloodSugarLevelsTime.Add(DateTime.Now.ToString("HH:mm:ss"));
+            double time = minute / 24;
+            double xtime = hour + time;
+
+            bloodSugarLevelsTime.Add(xtime);
             bloodSugarLevels.Add(value);
-            bloodSugarLength += 1;
+
+            if (xtime > chart1.ChartAreas[0].AxisX.Maximum)
+            {
+                chart1.ChartAreas[0].AxisX.Maximum += 12;
+                chart1.ChartAreas[0].AxisX.Minimum += 12;
+            }
+
+            if (chart1.ChartAreas[0].AxisX.Maximum == 24 && xtime < chart1.ChartAreas[0].AxisX.Minimum)
+            {
+                chart1.Series[0].Points.Clear();
+
+                /*for (int i = 0; i < bloodSugarLevels.Count(); i++)
+                {
+                    List<double> newbloodSugarLevels = new List<double>();
+                    List<double> newbloodSugarLevelsTime = new List<double>();
+
+                    if (!(bloodSugarLevelsTime[i] - 12 < 0))
+                    {
+                        newbloodSugarLevels.Add(bloodSugarLevels[i]);
+                        newbloodSugarLevelsTime.Add(bloodSugarLevelsTime[i] - 12);
+                    }
+                }*/
+                int length = bloodSugarLevels.Count();
+                double finalval = bloodSugarLevels[length - 1] - 24;
+                double finaltime = bloodSugarLevelsTime[length - 1] - 24;
+                chart1.ChartAreas[0].AxisX.Minimum = 0;
+                chart1.ChartAreas[0].AxisX.Maximum = 12;
+
+                bloodSugarLevels.Clear();
+                bloodSugarLevelsTime.Clear();
+            }
+
+            chart1.Series[0].Points.AddXY(xtime, value);
+            if (chart1.Series[0].Points.Count > 100)
+            {
+                chart1.Series[0].Points.RemoveAt(0);
+            }
         }
 
 
@@ -179,6 +214,10 @@ namespace Csci363_Project
             {
                 this.warnings.Remove(warning);
                 length -= 1;
+                if (length == 0)
+                {
+                    errorLabel.Visible = false;
+                }
             }
         }
 
@@ -230,7 +269,8 @@ namespace Csci363_Project
 
                 if (length == 1)
                 {
-                    systemMessages.Items.Add(warning);
+                    errorLabel.Text = warning;
+                    errorLabel.Visible = true;
                 }
                 else if (systemMessageTimer.Enabled == false && length >= 2)
                 {
@@ -258,12 +298,12 @@ namespace Csci363_Project
             if (length == 0)
             {
                 systemMessageTimer.Enabled = false;
-                systemMessages.Items.Clear();
+                errorLabel.Text = "";
+                errorLabel.Visible = false;
             } 
             else
             {
-                systemMessages.Items.Clear();
-                systemMessages.Items.Add(this.warnings[index]);
+                errorLabel.Text = this.warnings[index];
                 index += 1;
             }
         }
@@ -288,6 +328,7 @@ namespace Csci363_Project
                 // Switch to manual mode
                 operationModeLabel.Text = "Manual";
                 insulinButton.Enabled = true;
+                insulinButton.Visible = true;
             }
             else if (operationModeLabel.Text == "Manual")
             {
@@ -295,6 +336,7 @@ namespace Csci363_Project
                 operationModeLabel.Text = "Auto";
                 startSystem();
                 insulinButton.Enabled = false;
+                insulinButton.Visible = false;
             }
         }
 
@@ -357,6 +399,8 @@ namespace Csci363_Project
             hour = 0;
             minute = 0;
             second = 0;
+
+
         }
 
         private void startSystem()
@@ -404,12 +448,13 @@ namespace Csci363_Project
             // Auto mode will have to start what is necessary again
 
             insulinMessages.Items.Clear();
-            systemMessages.Items.Clear();
             insulinMessages.Items.Clear();
+            errorLabel.Text = "";
+            errorLabel.Visible = false;
 
             stopTimers();
             systemReset();
-
+            
             operatorButton.Enabled = false;
             insulinButton.Enabled = false;
             insulinCounter.Text = "";
@@ -471,6 +516,10 @@ namespace Csci363_Project
 
                 addInsulinMessage(messageToAdd);
                 addInsulinMessage(secondMessage);
+
+                string lastInsulinDose = "Last insulin dose delivered at " + timeAtDelivery;
+
+                insulinDoseLabel.Text = lastInsulinDose;
             }
             else
             {
@@ -492,10 +541,19 @@ namespace Csci363_Project
 
         }
 
-        private void systemMessages_SelectedIndexChanged(object sender, EventArgs e)
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void clock_Click(object sender, EventArgs e)
         {
 
         }
 
+        public void addRuntime()
+        {
+            hour += 1;
+        }
     }
 }
