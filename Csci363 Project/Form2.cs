@@ -49,6 +49,7 @@ namespace Csci363_Project
         private void batteryButton_Click(object sender, EventArgs e)
         {
             _form1.systemWarnings("Low Battery");
+            _form1.setBatteryLevel(7);
         }
 
         private void pumpFailureButton_Click(object sender, EventArgs e)
@@ -93,6 +94,7 @@ namespace Csci363_Project
         {
             _form1.warningRemove("Low Battery");
             _form1.addInsulinMessage("Battery replaced at " + DateTime.Now.ToString("HH:mm:ss"));
+            _form1.setBatteryLevel(100);
         }
 
         private void replacePumpButton_Click(object sender, EventArgs e)

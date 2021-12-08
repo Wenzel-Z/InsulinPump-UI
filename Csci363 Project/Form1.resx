@@ -130,12 +130,15 @@
     <value>370, 17</value>
   </metadata>
   <metadata name="bloodSugarTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>711, 24</value>
+    <value>714, 42</value>
   </metadata>
   <metadata name="hardwareTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>858, 7</value>
+    <value>848, 15</value>
   </metadata>
   <metadata name="alarmTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>864, 37</value>
+    <value>855, 44</value>
+  </metadata>
+  <metadata name="batteryTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>722, 8</value>
   </metadata>
 </root>

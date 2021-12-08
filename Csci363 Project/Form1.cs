@@ -31,6 +31,9 @@ namespace Csci363_Project
         List<string> warnings = new List<string>();
         int index = 0;
         int length;
+        
+        // Battery Level
+        int batteryLevel = 100;
 
         public Form1()
         {
@@ -416,6 +419,7 @@ namespace Csci363_Project
             operatorButton.Enabled = true;
             clockTimer.Enabled = true;
             runtimeTimer.Enabled = true;
+            batteryTimer.Enabled = true;
 
             if (bloodSugarTimer.Interval % 1000 == 0)
             {
@@ -439,6 +443,7 @@ namespace Csci363_Project
             bloodSugarTimer.Enabled = false;
             hardwareTimer.Enabled = false;
             alarmTimer.Enabled = false;
+            batteryTimer.Enabled = false;
 
         }
 
@@ -554,6 +559,23 @@ namespace Csci363_Project
         public void addRuntime()
         {
             hour += 1;
+        }
+
+        private void batteryTimer_Tick(object sender, EventArgs e)
+        {
+            batteryLevel -= 1;
+            batteryLabel.Text = "Battery " + batteryLevel + "%";
+
+            if (batteryLevel == 0)
+            {
+                Close();
+            }
+        }
+
+        public void setBatteryLevel(int level)
+        {
+            batteryLevel = level;
+            batteryLabel.Text = "Battery " + batteryLevel + "%";
         }
     }
 }
